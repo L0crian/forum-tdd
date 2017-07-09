@@ -29,7 +29,7 @@ class ReadThreadsTest extends TestCase
     /** @test */
     public function a_user_can_read_a_single_thread()
     {
-        $response = $this->get('/threads/' . $this->thread->id);
+        $response = $this->get($this->thread->path());
 
         $response->assertSee($this->thread->title);
     }
@@ -39,8 +39,20 @@ class ReadThreadsTest extends TestCase
     {
 
         $reply = create('App\Reply', ['thread_id' => $this->thread->id]);
-        $response = $this->get('/threads/' . $this->thread->id);
+        $response = $this->get($this->thread->path());
         $response->assertSee($reply->body);
 
+    }
+
+    /** @test */
+    public function a_user_can_filter_threads_accroding_to_a_tag()
+    {
+        $channel = create('App\Channel');
+        $threadInChannel = create('App\Thread', ['channel_id' => $channel->id]);
+        $threadNotInChannel = create('App\Thread');
+
+        $this->get('/threads/' . $channel->slug)
+            ->assertSee($threadInChannel->title)
+        ->assertDontSee($threadNotInChannel->title);
     }
 }
