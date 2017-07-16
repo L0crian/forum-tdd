@@ -18,5 +18,7 @@ class FavoritesController extends Controller
         $reply->favorite();
 
         return back();
+
+
     }
 }
