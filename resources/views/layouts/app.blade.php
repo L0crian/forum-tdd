@@ -13,6 +13,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+<script>
+    window.App = {!! json_encode([
+     'signedIn' => Auth::check(),
+     'user' => Auth::user(),
+     ])!!}
+</script>
 <style>
     body {padding-bottom: 100px;}
     .level{ display: flex; align-items: center}
