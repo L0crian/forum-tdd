@@ -29,30 +29,10 @@
                     </div>
                 </div>
 
-                <replies :data="{{ $thread->replies  }}" @removed="repliesCount--"></replies>
-
-                {{--@foreach($replies as $reply)
-                    @include('threads.reply')
-                @endforeach--}}
-
-                {{--{{ $replies->links() }}--}}
-
-                @if(auth()->check())
-                    <form method="POST" action="{{$thread->path()}}/replies">
-                        {{csrf_field()}}
-                        <div class="form-group">
-                            <label for="body">Body: </label>
-                            <textarea name="body" id="body" class="form-control"
-                                      placeholder="Have something to say?" rows="5"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-default">Post</button>
-                    </form>
-                @else
-                    <p class="text-center">Please <a href="{{route('login')}}"> sign in</a> to partisipate in this
-                        discussion</p>
-                @endif
+                <replies :data="{{ $thread->replies  }}"
+                @added="repliesCount++"
+                @removed="repliesCount--"></replies>
             </div>
-
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -67,7 +47,6 @@
             </div>
 
         </div>
-    </div>
     </thread-view>
 @endsection
 
