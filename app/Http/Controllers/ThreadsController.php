@@ -87,10 +87,7 @@ class ThreadsController extends Controller
     {
         //return $thread->load('replies.favorites')->load('replies.owner');
 
-        return view('threads.show', [
-            'thread' => $thread,
-            'replies' => $thread->replies()->paginate(3)
-        ]);
+        return view('threads.show', compact('thread'));
     }
 
     /**
